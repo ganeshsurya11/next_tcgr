@@ -29,7 +29,7 @@
       -webkit-font-smoothing:antialiased;
     }
     body.menu-open{ overflow:hidden;}
-    h1,h2,h3,.serif{ font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em;}
+    h1,h2,h3,.serif{  font-family:'Valley Sans', sans-serif; font-weight:500; letter-spacing:-0.01em;}
     img{display:block; width:100%; height:100%; object-fit:cover;}
     a{color:inherit; text-decoration:none;}
     .wrap{max-width:1240px; margin:0 auto; padding:0 40px;}
@@ -68,7 +68,7 @@
     .menu-open .hamburger-icon span:nth-child(3){ transform:translateY(-7px) rotate(-45deg);}
     .menu-label{ font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase;}
     .brand{
-      font-family:'Fraunces', serif; font-size:1.2rem; font-weight:600; letter-spacing:0.06em;
+      font-family:'Valley Sans', sans-serif; font-size:1.2rem; font-weight:600; letter-spacing:0.06em;
       color:var(--white);
     }
 
@@ -92,7 +92,7 @@
     .menu-list{ display:flex; flex-direction:column; flex:1;}
     .menu-list a{
       display:flex; align-items:center; gap:8px;
-      font-family:'Fraunces', serif; font-size:1.55rem; font-weight:500;
+      font-family:'Valley Sans', sans-serif; font-size:1.55rem; font-weight:500;
       text-transform:uppercase; letter-spacing:0.02em;
       padding:13px 0; color:var(--charcoal); border-bottom:1px solid transparent;
       transition:color .25s ease, padding-left .25s ease;
@@ -140,7 +140,7 @@
     .hero-sub p{ color:var(--stone); max-width:38ch; font-size:0.98rem;}
     .hero-stats{ display:flex; gap:36px;}
     .hero-stats div{ text-align:left;}
-    .hero-stats .num{ font-family:'Fraunces', serif; font-size:1.7rem; color:var(--white);}
+    .hero-stats .num{ font-family:'Valley Sans', sans-serif; font-size:1.7rem; color:var(--white);}
     .hero-stats .lbl{ font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone); margin-top:2px;}
     .scroll-cue{
       position:absolute; right:40px; bottom:28px; z-index:2; color:var(--stone); font-size:0.72rem;
@@ -159,12 +159,12 @@
     .about{ background:var(--paper);}
     .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:center;}
     .about-copy p{ color:var(--charcoal); font-size:1.05rem; margin-bottom:20px; max-width:46ch;}
-    .about-copy p.lead{ font-family:'Fraunces', serif; font-size:1.5rem; color:var(--ink); line-height:1.4; font-weight:400;}
+    .about-copy p.lead{ font-family:'Valley Sans', sans-serif; font-size:1.5rem; color:var(--ink); line-height:1.4; font-weight:400;}
     .about-figure{ aspect-ratio:4/5; overflow:hidden;}
     .about-figure img{ filter:saturate(0.92) contrast(1.03);}
     .about-founders{ display:flex; gap:30px; margin-top:34px; padding-top:28px; border-top:1px solid var(--line);}
     .about-founders div{ font-size:0.85rem; color:var(--charcoal);}
-    .about-founders strong{ display:block; font-family:'Fraunces', serif; font-size:1.1rem; color:var(--ink); font-weight:500;}
+    .about-founders strong{ display:block; font-family:'Valley Sans', sans-serif; font-size:1.1rem; color:var(--ink); font-weight:500;}
 
     /* ---------- Achievements ---------- */
     .achievements{ background:var(--ink); color:var(--paper); border-bottom:1px solid var(--ink);}
@@ -199,7 +199,7 @@
       background:linear-gradient(180deg, rgba(23,24,27,0) 40%, rgba(23,24,27,0.82) 100%);
     }
     .ach-num{ position:absolute; top:14px; left:16px; font-size:0.72rem; color:var(--paper); opacity:0.75; letter-spacing:0.06em;}
-    .ach-overlay .num{ font-family:'Fraunces', serif; font-size:1.5rem; color:var(--white);}
+    .ach-overlay .num{ font-family:'Valley Sans', sans-serif; font-size:1.5rem; color:var(--white);}
     .ach-overlay .label{ font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--stone); margin-top:2px;}
 
     /* ---------- horizontal card rows ---------- */
@@ -235,7 +235,7 @@
     /* ---------- Footer ---------- */
     footer{ background:var(--ink); color:var(--paper); padding:90px 0 30px;}
     .footer-top{ display:grid; grid-template-columns:1.3fr 0.8fr 0.8fr 0.8fr 1.1fr; gap:40px; padding-bottom:70px; border-bottom:1px solid #33342f;}
-    .footer-brand .logo{ font-family:'Fraunces', serif; font-size:1.15rem; font-weight:600; letter-spacing:0.06em; color:var(--paper); margin-bottom:18px;}
+    .footer-brand .logo{ font-family:'Valley Sans', sans-serif; font-size:1.15rem; font-weight:600; letter-spacing:0.06em; color:var(--paper); margin-bottom:18px;}
     .footer-brand p{ color:var(--stone); font-size:0.92rem; max-width:32ch;}
     .footer-col h4{ font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--stone); margin-bottom:18px;}
     .footer-col a{ display:block; font-size:0.92rem; color:var(--paper); opacity:0.85; margin-bottom:12px; transition:opacity .2s;}
@@ -295,8 +295,8 @@
   </button>
   <!-- EDIT: site/brand name in top-right corner -->
   <div class="brand">
-    <!-- <img src="logo-2.png" alt="TCGR Logo" width="200" height="300" /> -->
-     TCGRE
+    <img src="logo-3.png" alt="TCGR Logo" width="200" height="300" />
+     <!-- TCGRE -->
   </div>
 </header>
 
@@ -323,7 +323,8 @@
     </div>
   </div>
   <div class="menu-image-panel" id="menuImagePanel">
-    
+    <img class="active" data-default="" src="https://images.pexels.com/photos/2295433/pexels-photo-2295433.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+  <img src="https://images.pexels.com/photos/7108778/pexels-photo-7108778.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/14265867/pexels-photo-14265867.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/33813438/pexels-photo-33813438.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/10531560/pexels-photo-10531560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/18710794/pexels-photo-18710794.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/36601725/pexels-photo-36601725.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/37555757/pexels-photo-37555757.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class=""><img src="https://images.pexels.com/photos/7240133/pexels-photo-7240133.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="" class="">
 </div>
 </div>
 
@@ -391,15 +392,15 @@
     <!-- EDIT: the 7 achievement tiles below — each has a number label (01-07), a big stat (num), and a description (label) -->
     <div class="ach-grid">
       <div class="ach-item marked on-dark">
-        <img src="home_images/bw1.jpg" alt="">
+        <img src="home_images/bw6.jpg" alt="">
         <div class="ach-overlay"><div class="num">142</div><div class="label">Projects delivered</div></div>
       </div>
       <div class="ach-item marked on-dark">
-        <img src="home_images/bw1.jpg" alt="">
+        <img src="home_images/bw7.jpg" alt="">
         <div class="ach-overlay"><div class="num">4.2M</div><div class="label">Sq. ft. built</div></div>
       </div>
       <div class="ach-item marked on-dark">
-        <img src="home_images/bw3.jpg" alt="">
+        <img src="home_images/bw8.jpg" alt="">
         <div class="ach-overlay"><div class="num">12</div><div class="label">Industry awards</div></div>
       </div>
       <div class="ach-item marked on-dark">
@@ -411,7 +412,7 @@
         <div class="ach-overlay"><div class="num">30 Yrs</div><div class="label">In business</div></div>
       </div>
       <div class="ach-item marked on-dark">
-        <img src="home_images/bw5.jpg" alt="">
+        <img src="home_images/bw1.jpg" alt="">
         <div class="ach-overlay"><div class="num">98%</div><div class="label">On-time handover</div></div>
       </div>
       <div class="ach-item marked on-dark">
