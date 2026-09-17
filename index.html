@@ -1,0 +1,667 @@
+  <!DOCTYPE html>
+  <html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCGRE — Building trust into every foundation</title>
+  <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Valley+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&amp;family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root{
+      --ink:var(--color-ink);
+      --paper:var(--color-paper);
+      --paper-2:var(--color-paper-2);
+      --stone:var(--color-stone);
+      --line:var(--color-line);
+      --brick:var(--color-brick);
+      --brick-dim:var(--color-brick-dark);
+      --charcoal:var(--color-charcoal);
+      --white:var(--color-white);
+    }
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html{scroll-behavior:smooth;}
+
+    body{
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--font-body);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+    }
+    body.menu-open{ overflow:hidden;}
+    h1,h2,h3,.serif{  font-family:var(--font-display); font-weight:400; letter-spacing:-0.01em;}
+    img{display:block; width:100%; height:100%; object-fit:cover;}
+    a{color:inherit; text-decoration:none;}
+    .wrap{max-width:1240px; margin:0 auto; padding:0 40px;}
+
+    .marked{position:relative;}
+    .marked::before, .marked::after{
+      content:''; position:absolute; width:14px; height:14px; pointer-events:none;
+    }
+    .marked::before{ top:-1px; left:-1px; border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink); }
+    .marked::after{ bottom:-1px; right:-1px; border-bottom:1.5px solid var(--ink); border-right:1.5px solid var(--ink); }
+    .marked.on-dark::before, .marked.on-dark::after{ border-color:var(--paper); }
+
+    .site-header{
+      position:fixed; top:0; left:0; right:0; z-index:150;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:26px 40px; transition:background .35s ease, padding .35s ease, backdrop-filter .35s ease;
+    }
+    .site-header.scrolled{
+      background:rgba(23,24,27,0.82); backdrop-filter:blur(8px); padding:16px 40px;
+    }
+    .hamburger-btn{
+      display:flex; align-items:center; gap:14px; background:none; border:none; cursor:pointer;
+      color:var(--white); font-family:'Public Sans', sans-serif;
+    }
+    .hamburger-icon{ width:26px; height:16px; position:relative; display:block;}
+    .hamburger-icon span{
+      position:absolute; left:0; width:100%; height:2px; background:var(--white); transition:transform .3s ease, opacity .3s ease;
+    }
+    .hamburger-icon span:nth-child(1){ top:0;}
+    .hamburger-icon span:nth-child(2){ top:7px;}
+    .hamburger-icon span:nth-child(3){ top:14px;}
+    .menu-open .hamburger-icon span:nth-child(1){ transform:translateY(7px) rotate(45deg);}
+    .menu-open .hamburger-icon span:nth-child(2){ opacity:0;}
+    .menu-open .hamburger-icon span:nth-child(3){ transform:translateY(-7px) rotate(-45deg);}
+    .menu-label{ font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; }
+    .brand{
+      font-family:'Valley Sans', sans-serif; font-size:1.2rem; font-weight:600; letter-spacing:0.06em;
+      color:var(--white);
+    }
+    .brand img {
+      display: block;
+      width: 170px;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.15));
+    }
+
+    .menu-overlay{
+      position:fixed; inset:0; z-index:200; display:flex;
+      visibility:hidden; opacity:0; transition:opacity .45s ease, visibility .45s ease;
+    }
+    .menu-overlay.open{ visibility:visible; opacity:1;}
+    .menu-panel{
+      width:min(520px, 88vw); height:100%; background:var(--paper);
+      padding:110px 52px 40px; display:flex; flex-direction:column;
+      transform:translateX(-100%); transition:transform .55s cubic-bezier(.45,0,.15,1);
+      position:relative; overflow-y:auto;
+    }
+    .menu-overlay.open .menu-panel{ transform:translateX(0);}
+    .menu-close{
+      position:absolute; top:26px; right:34px; background:none; border:none; cursor:pointer;
+      font-size:1.7rem; line-height:1; color:var(--ink); font-family:'Public Sans', sans-serif; font-weight:300;
+    }
+    .menu-list{ display:flex; flex-direction:column; flex:1;}
+    .menu-list a{
+      display:flex; align-items:center; gap:8px;
+      font-family:'Valley Sans', sans-serif; font-size:1.55rem; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.02em;
+      padding:13px 0; color:var(--charcoal); border-bottom:1px solid transparent;
+      transition:color .25s ease, padding-left .25s ease;
+    }
+    .menu-list a:hover, .menu-list a:focus{ color:var(--brick); padding-left:10px;}
+    .menu-list a .arrow{ font-size:1.1rem; opacity:0.7; transform:translateY(-1px);}
+    .menu-socials{ display:flex; gap:22px; padding-top:26px; margin-top:26px; border-top:1px solid var(--line);}
+    .menu-socials a{ font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--charcoal);}
+    .menu-socials a:hover{ color:var(--brick);}
+    .menu-image-panel{
+      flex:1; position:relative; overflow:hidden; opacity:0; transition:opacity .5s ease .08s;
+    }
+    .menu-overlay.open .menu-image-panel{ opacity:1;}
+    .menu-image-panel img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease;
+    }
+    .menu-image-panel img.active{ opacity:1;}
+    .menu-image-panel::after{
+      content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(23,24,27,0.15), rgba(23,24,27,0.35));
+    }
+
+    .hero{ position:relative; height:100vh; min-height:640px; overflow:hidden; background:var(--ink);}
+    .hero-media{ position:absolute; inset:0;}
+    .hero-media video, .hero-media img{ width:100%; height:100%; object-fit:cover;}
+    .hero::after{
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(23,24,27,0.45) 0%, rgba(23,24,27,0.2) 40%, rgba(23,24,27,0.88) 100%);
+    }
+    .hero-content{
+      position:relative; z-index:2; height:100%; max-width:1240px; margin:0 auto; padding:0 40px;
+      display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:64px;
+    }
+    .hero-eyebrow{
+      color:var(--paper); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+      opacity:0.8; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+    }
+    .hero-eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--brick); display:inline-block; animation:pulse 2.2s ease-in-out infinite;}
+    @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .hero h1{
+      color:var(--white); font-size:clamp(2.4rem, 5.4vw, 4.6rem); line-height:1.04; max-width:15ch; font-weight:400;
+    }
+    .hero h1 em{ font-style:italic; color:var(--stone);}
+    .hero-sub{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-top:36px; flex-wrap:wrap;}
+    .hero-sub p{ color:var(--stone); max-width:38ch; font-size:0.98rem;}
+    .hero-stats{ display:flex; gap:36px;}
+    .hero-stats div{ text-align:left;}
+    .hero-stats .num{ font-family:'Valley Sans', sans-serif; font-size:1.7rem; color:var(--white);}
+    .hero-stats .lbl{ font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone); margin-top:2px;}
+    .scroll-cue{
+      position:absolute; right:40px; bottom:28px; z-index:2; color:var(--stone); font-size:0.72rem;
+      letter-spacing:0.1em; text-transform:uppercase; writing-mode:vertical-rl; display:flex; align-items:center; gap:10px;
+    }
+    .scroll-cue::after{content:''; width:1px; height:40px; background:var(--stone);}
+
+    section{ padding:110px 0; border-bottom:1px solid var(--line);}
+    .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:56px; flex-wrap:wrap;}
+    .section-tag{ font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--brick); margin-bottom:14px; display:block;}
+    .section-head h2{ font-size:clamp(1.9rem, 3.2vw, 2.7rem); font-weight:400;}
+    .section-head p{ max-width:34ch; color:var(--charcoal); font-size:0.98rem; padding-bottom:6px;}
+
+    .about{ background:var(--paper);}
+    .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; align-items:center;}
+    .about-copy p{ color:var(--charcoal); font-size:1.05rem; margin-bottom:20px; max-width:46ch;}
+    .about-copy p.lead{ font-family:'Valley Sans', sans-serif; font-size:1.5rem; color:var(--ink); line-height:1.4; font-weight:400;}
+    .about-figure{ aspect-ratio:4/5; overflow:hidden;}
+    .about-figure img{ filter:saturate(0.92) contrast(1.03);}
+    .about-founders{ display:flex; gap:30px; margin-top:34px; padding-top:28px; border-top:1px solid var(--line);}
+    .about-founders div{ font-size:0.85rem; color:var(--charcoal);}
+    .about-founders strong{ display:block; font-family:'Valley Sans', sans-serif; font-size:1.1rem; color:var(--ink); font-weight:500;}
+
+    .achievements{ background:var(--ink); color:var(--paper); border-bottom:1px solid var(--ink);}
+    .achievements .section-tag{ color:#D98A66;}
+    .achievements .section-head p{ color:var(--stone);}
+    .ach-grid{
+      display:grid;
+      grid-template-columns:repeat(6, 1fr);
+      grid-template-rows:repeat(2, 220px);
+      gap:14px;
+    }
+    .ach-item{
+      position:relative; overflow:hidden; cursor:pointer;
+      grid-column:span 2;
+    }
+    .ach-item:nth-child(1){ grid-column:1 / span 1; grid-row:1;}
+    .ach-item:nth-child(2){ grid-column:2 / span 1; grid-row:1;}
+    .ach-item:nth-child(3){ grid-column:1 / span 2; grid-row:2;}
+    .ach-item:nth-child(4){ grid-column:3 / span 2; grid-row:1 / span 2;}
+    .ach-item:nth-child(5){ grid-column:5 / span 2; grid-row:1;}
+    .ach-item:nth-child(6){ grid-column:5 / span 1; grid-row:2;}
+    .ach-item:nth-child(7){ grid-column:6 / span 1; grid-row:2;}
+
+    .ach-item img{
+      filter:grayscale(1) contrast(1.05) brightness(0.95);
+      transition:filter .6s ease, transform .6s ease;
+      transform:scale(1.01);
+    }
+    .ach-item:hover img{ filter:grayscale(0) contrast(1.02) brightness(1); transform:scale(1.07);}
+    .ach-overlay{
+      position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:16px;
+      background:linear-gradient(180deg, rgba(23,24,27,0) 40%, rgba(23,24,27,0.82) 100%);
+    }
+    .ach-num{ position:absolute; top:14px; left:16px; font-size:0.72rem; color:var(--paper); opacity:0.75; letter-spacing:0.06em;}
+    .ach-overlay .num{ font-family:'Valley Sans', sans-serif; font-size:1.5rem; color:var(--white);}
+    .ach-overlay .label{ font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--stone); margin-top:2px;}
+
+    .row-scroll{ display:grid; gap:26px; }
+    .projects .row-scroll{ grid-template-columns:repeat(5, 1fr);}
+    .press .row-scroll{ grid-template-columns:repeat(3, 1fr);}
+    .blog .row-scroll{ grid-template-columns:repeat(5, 1fr);}
+
+    .proj-card{ display:flex; flex-direction:column;}
+    .proj-figure{ aspect-ratio:3/4; overflow:hidden; margin-bottom:16px; position:relative;}
+    .proj-figure img{ transition:transform .5s ease;}
+    .proj-card:hover .proj-figure img{ transform:scale(1.05);}
+    .proj-status{
+      position:absolute; top:12px; left:12px; background:var(--paper); color:var(--ink);
+      font-size:0.66rem; letter-spacing:0.05em; text-transform:uppercase; padding:5px 10px;
+    }
+    .proj-card h3{ font-size:1.05rem; font-weight:500; margin-bottom:4px;}
+    .proj-card .loc{ font-size:0.82rem; color:var(--charcoal);}
+
+    .press-card{ border-top:1px solid var(--line); padding-top:22px;}
+    .press-date{ font-size:0.76rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--brick); margin-bottom:12px; display:block;}
+    .press-card h3{ font-size:1.25rem; font-weight:400; line-height:1.35; margin-bottom:14px;}
+    .press-source{ font-size:0.82rem; color:var(--charcoal); display:flex; justify-content:space-between; align-items:center;}
+    .press-source .link{ color:var(--ink); border-bottom:1px solid var(--ink); padding-bottom:1px;}
+
+    .blog-card{ display:flex; flex-direction:column;}
+    .blog-figure{ aspect-ratio:1/1; overflow:hidden; margin-bottom:14px;}
+    .blog-figure img{ transition:transform .5s ease;}
+    .blog-card:hover .blog-figure img{ transform:scale(1.06);}
+    .blog-cat{ font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brick); margin-bottom:8px; display:block;}
+    .blog-card h3{ font-size:0.98rem; font-weight:500; line-height:1.35;}
+
+    footer{ background:var(--ink); color:var(--paper); padding:90px 0 30px;}
+    .footer-top{ display:grid; grid-template-columns:1.3fr 0.8fr 0.8fr 0.8fr 1.1fr; gap:40px; padding-bottom:70px; border-bottom:1px solid #33342f;}
+    .footer-brand .logo{ font-family:'Valley Sans', sans-serif; font-size:1.15rem; font-weight:600; letter-spacing:0.06em; color:var(--paper); margin-bottom:18px;}
+    .footer-brand p{ color:var(--stone); font-size:0.92rem; max-width:32ch;}
+    .footer-col h4{ font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--stone); margin-bottom:18px;}
+    .footer-col a{ display:block; font-size:0.92rem; color:var(--paper); opacity:0.85; margin-bottom:12px; transition:opacity .2s;}
+    .footer-col a:hover{ opacity:1; color:#D98A66;}
+    .footer-form{ display:flex; border-bottom:1px solid var(--stone); padding-bottom:10px; margin-top:8px;}
+    .footer-form input{
+      background:transparent; border:none; outline:none; color:var(--paper); font-family:'Public Sans', sans-serif;
+      font-size:0.92rem; flex:1;
+    }
+    .footer-form input::placeholder{ color:#8b8a83;}
+    .footer-form button{ background:none; border:none; color:var(--paper); font-size:0.92rem; cursor:pointer; letter-spacing:0.04em;}
+    .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:0.78rem; color:#8b8a83; flex-wrap:wrap; gap:14px;}
+    .footer-bottom .socials{ display:flex; gap:20px;}
+    .footer-bottom .socials a{ color:#8b8a83;}
+    .footer-bottom .socials a:hover{ color:var(--paper);}
+
+    @media (max-width: 980px){
+      .about-grid{ grid-template-columns:1fr; gap:40px;}
+      .ach-grid{ grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(4, 180px);}
+      .ach-item:nth-child(1){ grid-column:1; grid-row:1;}
+      .ach-item:nth-child(2){ grid-column:2; grid-row:1;}
+      .ach-item:nth-child(3){ grid-column:1/span 2; grid-row:2;}
+      .ach-item:nth-child(4){ grid-column:3; grid-row:1/span 2;}
+      .ach-item:nth-child(5){ grid-column:1/span 2; grid-row:3;}
+      .ach-item:nth-child(6){ grid-column:3; grid-row:3;}
+      .ach-item:nth-child(7){ grid-column:3; grid-row:4;}
+      .projects .row-scroll, .blog .row-scroll{ grid-template-columns:repeat(2,1fr);}
+      .press .row-scroll{ grid-template-columns:1fr;}
+      .footer-top{ grid-template-columns:1fr 1fr; row-gap:40px;}
+      .menu-image-panel{ display:none;}
+      .menu-panel{ width:100%;}
+    }
+    @media (max-width:600px){
+      .wrap, .hero-content{ padding-left:22px; padding-right:22px;}
+      .site-header{ padding:20px 22px;}
+      section{ padding:70px 0;}
+      .projects .row-scroll, .blog .row-scroll{ grid-template-columns:1fr;}
+      .footer-top{ grid-template-columns:1fr;}
+      .hero-sub{ flex-direction:column; align-items:flex-start;}
+      .menu-panel{ padding:96px 30px 30px;}
+      .menu-list a{ font-size:1.25rem;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .hero-eyebrow .dot{ animation:none;}
+      *{ transition-duration:0.01ms !important; animation-duration:0.01ms !important;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header scrolled" id="siteHeader">
+  <button class="hamburger-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+    <span class="hamburger-icon"><span></span><span></span><span></span></span>
+    <span class="menu-label">Menu</span>
+  </button>
+  <div class="brand">
+    <img src="logo-3.png" alt="TCGRE Logo" />
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-panel">
+    <button class="menu-close" id="menuCloseBtn" aria-label="Close menu">×</button>
+    <nav class="menu-list" id="menuList">
+      <a href="#home" data-img="https://images.pexels.com/photos/2295433/pexels-photo-2295433.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">Home</a>
+      <a href="#about" data-img="https://images.pexels.com/photos/7108778/pexels-photo-7108778.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">About Us</a>
+      <a href="#projects" data-img="https://images.pexels.com/photos/14265867/pexels-photo-14265867.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400"><span class="txt">Projects</span><span class="arrow">›</span></a>
+      <a href="#blog" data-img="https://images.pexels.com/photos/10531560/pexels-photo-10531560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">Blogs</a>
+      <a href="#press" data-img="https://images.pexels.com/photos/18710794/pexels-photo-18710794.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">News &amp; Media</a>
+      <a href="#careers" data-img="https://images.pexels.com/photos/36601725/pexels-photo-36601725.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">Careers</a>
+      <a href="#contact" data-img="https://images.pexels.com/photos/37555757/pexels-photo-37555757.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400">Contact Us</a>
+    </nav>
+    <div class="menu-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+  <div class="menu-image-panel" id="menuImagePanel">
+    <img class="active" data-default="" src="https://images.pexels.com/photos/2295433/pexels-photo-2295433.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/7108778/pexels-photo-7108778.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/14265867/pexels-photo-14265867.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/33813438/pexels-photo-33813438.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/10531560/pexels-photo-10531560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/18710794/pexels-photo-18710794.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/36601725/pexels-photo-36601725.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/37555757/pexels-photo-37555757.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+    <img src="https://images.pexels.com/photos/7240133/pexels-photo-7240133.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1400" alt="">
+  </div>
+</div>
+
+<section class="hero" id="home" style="border:none; padding:0;">
+  <div class="hero-media">
+    <img src="home_images/main_banner.jpg" alt="TCGRE development">
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow"><span class="dot"></span></span>
+    <h1 class="">A Legacy Built on Trust.</h1>
+    <div class="hero-sub">
+      <p class=""><br></p>
+      <div class="hero-stats">
+        <div><div class="num"><br></div><div class="lbl"><br></div></div>
+        <div><div class="num"><br></div><div class="lbl"><br></div></div>
+        <div><div class="num"><br></div><div class="lbl"><br></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <!-- EDIT: "About us" section label -->
+      <!-- <span class="section-tag">About us</span> -->
+      <!-- EDIT: large lead paragraph -->
+       <div class="section-head">
+         <h2>About us</h2>
+       </div>
+      <p>TCG Real Estate, a leading player in the real estate industry since its inception in 1996, has established a strong presence across multiple cities in India. Under the aegis of global conglomerate The Chatterjee Group (TCG), we have consistently delivered world-class commercial, residential and managed living projects that epitomise India’s urban growth story.</p></b><br class="Apple-interchange-newline"></p>
+      <!-- EDIT: supporting paragraph -->
+      <p class="">TCGRE designs, builds, and stands behind residential and commercial developments across the city. We keep design, engineering, and construction under one roof, which means fewer handoffs, fewer surprises, and a single team accountable from the first drawing to the final walkthrough. <a href="">Read more...</a></p>
+      <!-- EDIT: three small stat callouts -->
+      <!-- <div class="about-founders">
+        <div><strong>142</strong>Homes &amp; towers built</div>
+        <div><strong>18</strong>Live construction sites</div>
+        <div><strong>4.8/5</strong>Average client rating</div>
+      </div> -->
+    </div>
+    <div class="about-figure marked">
+      <!-- EDIT: image src (URL) to change this photo -->
+      <img src="https://images.pexels.com/photos/33762932/pexels-photo-33762932.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000" alt="High-rise under construction with tower cranes">
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" id="achievements">
+  <div class="wrap">
+    <!-- EDIT: Achievements section heading + intro text -->
+    <div class="section-head">
+      <div>
+        <span class="section-tag">Achievements</span>
+        <h2 class="">A Journey of Milestones</h2>
+      </div>
+      <!-- <p class="">Hover any frame — colour is what happens when a milestone gets confirmed.</p> -->
+    </div>
+    <!-- EDIT: the 7 achievement tiles below — each has a number label (01-07), a big stat (num), and a description (label) -->
+    <div class="ach-grid">
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw6.jpg" alt="">
+        <div class="ach-overlay"><div class="num">142</div><div class="label">Projects delivered</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw7.jpg" alt="">
+        <div class="ach-overlay"><div class="num">4.2M</div><div class="label">Sq. ft. built</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw8.jpg" alt="">
+        <div class="ach-overlay"><div class="num">12</div><div class="label">Industry awards</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw4.jpg" alt="">
+        <div class="ach-overlay"><div class="num">ISO 9001</div><div class="label">Quality certified</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw3.jpg" alt="">
+        <div class="ach-overlay"><div class="num">30 Yrs</div><div class="label">In business</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw1.jpg" alt="">
+        <div class="ach-overlay"><div class="num">98%</div><div class="label">On-time handover</div></div>
+      </div>
+      <div class="ach-item marked on-dark">
+        <img src="home_images/bw5.jpg" alt="">
+        <div class="ach-overlay"><div class="num">6,000+</div><div class="label">Families housed</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONGOING PROJECTS -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <!-- EDIT: Projects section heading + intro text -->
+    <div class="section-head">
+      <div>
+        <span class="section-tag">Our ongoing projects</span>
+        <h2 class="">Currently on site.</h2>
+      </div>
+      <!-- <p class="">Five active developments, from foundation to final finish.</p> -->
+    </div>
+    <!-- EDIT: 5 project cards — each has a status tag, project name, and location -->
+    <div class="row-scroll">
+      <div class="proj-card">
+        <div class="proj-figure marked">
+          <!-- <span class="proj-status">Structure</span> -->
+          <img src="home_images/location1.jpg" alt=""></div>
+        <h3 class=""><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 700; font-style: normal; font-kerning: normal;">TCG International Biotech Park</span></h3>
+        <div class="loc">Pune</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-figure marked">
+          <!-- <span class="proj-status">Finishing</span> -->
+          <img src="home_images/location2.jpg" alt=""></div>
+        <h3 class=""><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 700; font-style: normal; font-kerning: normal;">CHRYSALIS ENCLAVE</span></h3>
+        <div class="loc">MIDC Pune</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-figure marked">
+          <!-- <span class="proj-status">Foundation</span> -->
+          <img src="home_images/location3.jpg" alt=""></div>
+        <h3 class=""><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 700; font-style: normal; font-kerning: normal;">TCG FINANCIAL CENTRE</span></h3>
+        <div class="loc">Mumbai</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-figure marked">
+          <!-- <span class="proj-status">Structure</span> -->
+          <img src="home_images/location4.jpg" alt=""></div>
+        <h3 class=""><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 700; font-style: normal; font-kerning: normal;">FIRST INDIA PLACE</span></h3>
+        <div class="loc">MG Road Gurugram</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-figure marked">
+          <!-- <span class="proj-status">Handover Q4</span> -->
+          <img src="https://images.pexels.com/photos/30195869/pexels-photo-30195869.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt=""></div>
+        <h3 class=""><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 700; font-style: normal; font-kerning: normal;">FIRST TECHNOLOGY PLACE</span></h3>
+        <div class="loc">Bengaluru - 66</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS RELEASES -->
+<section class="press" id="press">
+  <div class="wrap">
+    <div class="section-head">
+      <!-- EDIT: Press section heading -->
+      <div>
+        <span class="section-tag">Press releases</span>
+        <h2 class="">In the news.</h2>
+      </div>
+    </div>
+    <!-- EDIT: 3 press release cards — date, headline, source name -->
+    <div class="row-scroll">
+      <div class="press-card">
+        <span class="press-date">March 2026</span>
+        <h3 class="">TCG Real Estate Launches "Yukio" Brand to Enter Premium Managed Living Segment</h3>
+        <div class="press-source">City Business Journal <span class="link">Read release</span></div>
+      </div>
+      <div class="press-card">
+        <span class="press-date">January 2026</span>
+        <h3 class="">Aggressive Multi-Metro Expansion Planned for Yukio Platform</h3>
+        <div class="press-source">Property Weekly <span class="link">Read release</span></div>
+      </div>
+      <div class="press-card">
+        <span class="press-date">November 2025</span>
+        <h3 class="">Progress Accelerates on the 1-Million-Square-Foot Gurugram WTC Project</h3>
+        <div class="press-source">Construction Today <span class="link">Read release</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog" id="blog" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <!-- EDIT: Blog section heading + intro text -->
+      <div>
+        <span class="section-tag">Blog</span>
+        <h2 class="">Expert Insights. Better Decisions.</h2>
+      </div>
+      <!-- <p class="">Site updates, buyer guides, and how we build.</p> -->
+    </div>
+    <!-- EDIT: 5 blog cards — each has a category tag and a headline -->
+    <div class="row-scroll">
+      <div class="y-card">
+        <div class="blog-figure"><img src="
+          home_images/blog1.jpg" alt=""></div>
+        <span class="blog-cat">Buyer guide</span>
+        <h3 class="">What to check before you sign a builder-buyer agreement</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-figure"><img src="home_images/blog2.jpg" alt=""></div>
+        <span class="blog-cat">On site</span>
+        <h3 class="">Inside the pour: how we cure concrete in monsoon season</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-figure"><img src="home_images/blog3.jpg" alt=""></div>
+        <span class="blog-cat">Design</span>
+        <h3 class="">Why we still draft floor plans by hand before CAD</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-figure"><img src="https://images.pexels.com/photos/6223990/pexels-photo-6223990.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt=""></div>
+        <span class="blog-cat">Sustainability</span>
+        <h3 class="">Rainwater harvesting is now standard on every new site</h3>
+      </div>
+      <div class="blog-card">
+        <div class="blog-figure"><img src="https://images.pexels.com/photos/19599291/pexels-photo-19599291.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt=""></div>
+        <span class="blog-cat">Community</span>
+        <h3 class="">Meet the site foremen who've been with us over a decade</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-top">
+      <!-- EDIT: footer brand name + tagline -->
+      <div class="footer-brand">
+        <div class="logo">TCGRE</div>
+        <p class="">xoxoxo xoxox .</p>
+      </div>
+      <!-- EDIT: "Company" footer column links -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about" class="">About us</a>
+        <a href="#achievements" class="">Achievements</a>
+        <a href="#projects" class="">Projects</a>
+        <a href="#careers" class="">Careers</a>
+      </div>
+      <!-- EDIT: "Resources" footer column links -->
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#press" class="">Press</a>
+        <a href="#blog" class="">Project</a>
+        <a href="#annual" class="">Blogs</a>
+      </div>
+      <!-- EDIT: "Contact" footer column — phone, email, address -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+910000000000" class="">+91 xxxxx xxxxx</a>
+        <a href="mailto:hello@tcgre.com" class="">hello@tcgre.com</a>
+        <a href="#contact" class="">Mumbai</a>
+      </div>
+      <!-- EDIT: newsletter signup column text -->
+      <div class="footer-col">
+        <h4>Stay updated</h4>
+        <p style="color:var(--stone); font-size:0.88rem; margin-bottom:4px;" class="">New launches, before they're listed.</p>
+        <!-- <div class="footer-form">
+          <input type="email" placeholder="Your email address">
+          <button type="button" class=""><br><br></button>
+        </div> -->
+      </div>
+    </div>
+    <!-- EDIT: copyright line + footer social links -->
+    <div class="footer-bottom">
+      <span class="">© 2026 TCGRE. All rights reserved.</span>
+      <div class="socials">
+        <a href="#" class="">Instagram</a>
+        <a href="#" class="">LinkedIn</a>
+        <a href="#" class="">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  const menuToggle = document.getElementById('menuToggle');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuCloseBtn = document.getElementById('menuCloseBtn');
+  const menuList = document.getElementById('menuList');
+  const menuImagePanel = document.getElementById('menuImagePanel');
+  const defaultImg = menuImagePanel.querySelector('img[data-default]');
+  const defaultSrc = defaultImg.getAttribute('src');
+
+  function openMenu(){
+    menuOverlay.classList.add('open');
+    document.body.classList.add('menu-open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(){
+    menuOverlay.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  menuToggle.addEventListener('click', () => {
+    menuOverlay.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  menuCloseBtn.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', (e) => { if (e.target === menuOverlay) closeMenu(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  // swap preview image on link hover
+  function showImage(src){
+    let img = menuImagePanel.querySelector('img[src="' + src + '"]');
+    if (!img){
+      img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      menuImagePanel.appendChild(img);
+      // force reflow so the fade-in transition runs
+      void img.offsetWidth;
+    }
+    menuImagePanel.querySelectorAll('img').forEach(el => el.classList.remove('active'));
+    img.classList.add('active');
+  }
+  menuList.querySelectorAll('a').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      const src = link.getAttribute('data-img');
+      if (src) showImage(src);
+    });
+    link.addEventListener('focus', () => {
+      const src = link.getAttribute('data-img');
+      if (src) showImage(src);
+    });
+  });
+  menuList.addEventListener('mouseleave', () => showImage(defaultSrc));
+
+  // close menu after choosing a link
+  menuList.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // darken header once the page scrolls past the hero
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+</script>
+</body></html>
