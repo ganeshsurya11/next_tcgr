@@ -25,6 +25,7 @@
   --green-soft: rgba(31,107,68,.10);
   --blue:#265E7C;
   --blue-soft: rgba(38,94,124,.10);
+  --sage:#E2EADB;
   --serif: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --sans: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --shell: 1280px;
@@ -100,8 +101,8 @@ button, input, select{ font-family:var(--sans); }
 }
 .hero__in{
   position:relative; z-index:2; height:100%;
-  display:flex; flex-direction:column; justify-content:flex-end;
-  padding:0 var(--pad) clamp(148px,7vh,84px);
+  display:grid; grid-template-columns:1fr 1fr; column-gap:clamp(24px,4vw,64px); align-items:end;
+  padding:0 var(--pad) clamp(36px,6vh,64px);
   max-width:var(--shell); margin:0 auto;
   color:#fff;
   opacity:0; transform:translateY(16px);
@@ -117,13 +118,19 @@ button, input, select{ font-family:var(--sans); }
 }
 .hero__badge img{ width:18px; height:18px; }
 .hero h1{
-  margin-top:22px; font-size:clamp(2.6rem,6vw,4.55rem); line-height:1.04;
-  letter-spacing:-.03em; font-weight:700; max-width:19ch;
+  margin:0; font-size:clamp(1.5rem,2.6vw,2.2rem); line-height:1.2;
+  letter-spacing:-.015em; font-weight:500; max-width:20ch;
   font-family:"Manrope", "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 .hero__lede{
-  margin-top:20px; max-width:60ch; font-size:clamp(1rem,1.3vw,1.14rem);
+  margin:0; max-width:52ch; font-size:clamp(.85rem,1vw,.95rem);
   color:rgba(255,255,255,.86); line-height:1.6;
+  border-left:1px solid rgba(255,255,255,.45); padding-left:clamp(16px,2vw,28px);
+}
+@media (max-width:760px){
+  .hero__in{ grid-template-columns:1fr; row-gap:16px; }
+  .hero__lede{ border-left:0; padding-left:0; }
+  .hero__in h1{margin-top:98%}
 }
 .hero__cta{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
 .btn{
@@ -167,14 +174,17 @@ button, input, select{ font-family:var(--sans); }
 .sec__head p{ max-width:38ch; color:var(--muted); font-size:.98rem; }
 
 /* ============ ABOUT ============ */
-.about{ background:var(--paper-2); }
+.about{ background:; }
 .about__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,6vw,90px); align-items:start; }
 @media (max-width:880px){ .about__grid{ grid-template-columns:1fr; } }
 .about__block h3{ font-size:1.18rem; font-weight:600; margin-bottom:12px; }
 .about__block p{ color:var(--ink-soft); }
 .about__block{ border-top:2px solid var(--gold); padding-top:22px; }
-.stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(16px,3vw,36px); margin-top:clamp(40px,5vw,64px); padding:clamp(24px,3vw,36px); background:var(--gold-soft); border-radius:18px; }
-@media (max-width:760px){ .stats{ grid-template-columns:1fr 1fr; } }
+.statsband{ background:var(--sage); padding:clamp(48px,6vw,80px) 0; }
+.stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; padding:clamp(24px,3vw,36px) 0; background:#fff; border-radius:18px; box-shadow:0 18px 40px rgba(24,33,25,.10); }
+.stats .stat{ padding:0 clamp(16px,2.4vw,32px); border-left:1px solid var(--line); }
+.stats .stat:first-child{ border-left:0; }
+@media (max-width:760px){ .stats{ grid-template-columns:1fr 1fr; row-gap:24px; } .stats .stat:nth-child(odd){ border-left:0; } }
 .stat{ display:flex; flex-direction:column; gap:6px; }
 .stat__n{ font-family:var(--serif); font-size:clamp(1.9rem,3.4vw,2.8rem); font-weight:600; color:var(--gold-deep); line-height:1; }
 .stat__l{ font-size:.84rem; color:var(--ink-soft); }
@@ -271,14 +281,14 @@ button, input, select{ font-family:var(--sans); }
 .spot__mail{ width:fit-content; font-size:.98rem; color:var(--ink-soft); }
 
 /* ============ FOOTER ============ */
-.foot{ background:var(--ink); color:#fff; }
+.foot{ background:#F4F3EF; color:#3a463c; }
 .foot__in{ padding:clamp(56px,7vw,90px) var(--pad) 30px; max-width:var(--shell); margin:0 auto; }
 .foot__grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:clamp(30px,5vw,64px); }
 @media (max-width:760px){ .foot__grid{ grid-template-columns:1fr; } }
 .foot__brand{ display:flex; align-items:center; gap:11px; margin-bottom:16px; }
 .foot__brand img{ width:30px; }
 .foot__brand span{ font-family:var(--serif); font-size:1.1rem; font-weight:600; }
-.foot p{ color:rgba(255,255,255,.62); font-size:.92rem; max-width:36ch; line-height:1.6; }
+.foot p{ color: #3a463c; font-size:.92rem; max-width:36ch; line-height:1.6; }
 .foot h5{ font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:16px; }
 .foot__links{ display:flex; flex-direction:column; gap:11px; }
 .foot__links a{ text-decoration:none; font-size:.94rem; width:fit-content; border-bottom:1px solid transparent; transition:border-color .2s; }
@@ -287,7 +297,7 @@ button, input, select{ font-family:var(--sans); }
 .foot__base{
   margin-top:clamp(40px,6vw,64px); padding-top:22px; border-top:1px solid rgba(255,255,255,.12);
   display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
-  font-size:.78rem; color:rgba(255,255,255,.5);
+  font-size:.78rem; color:#3a463c;
 }
 .foot__base a{ color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.4); }
 </style>
@@ -316,18 +326,9 @@ button, input, select{ font-family:var(--sans); }
   </div>
   <div class="hero__scrim"></div>
   <div class="hero__in">
- 
-    <h1>Thirty years of shaping skylines and possibilities</h1>
+    <h1>Three decades of shaping skylines and possibilities</h1>
     <p class="hero__lede">From technology parks and commercial spaces to biotech parks, residential projects and managed living, TCG Real Estate’s portfolio reflects a diverse presence across Bengaluru, Mumbai, Kolkata and Pune.</p>
-    <!-- <div class="hero__cta">
-      <a class="btn btn--gold" href="#work">Explore the portfolio</a>
-      <a class="btn btn--line" href="#contact">Enquire</a>
-    </div> -->
   </div>
-  <!-- <div class="hero__foot">
-    <div class="hero__scroll"></div>
-    <div class="hero__cap"><b>ITPL</b><span>Whitefield, Bengaluru</span></div>
-  </div> -->
 </header>
 
 <section class="sec" id="work">
@@ -514,7 +515,7 @@ button, input, select{ font-family:var(--sans); }
         <div class="spot__contact">
           <span class="spot__label">Contact us on</span>
           <a class="spot__phone" href="tel:+919799997999">+91 97999 97999</a>
-          <a class="spot__mail" href="mailto:Info@tcgre.com">Info@tcgre.com</a>
+          <a class="spot__mail" href="https://www.thecrowngreens.com/" target="_blank">Know more</a>
         </div>
       </div>
     </div>
@@ -524,7 +525,7 @@ button, input, select{ font-family:var(--sans); }
 <section class="sec about" id="about">
   <div class="shell">
     <div class="sec__head">
-      <h2>Thirty Years of Building, Not Talking</h2>
+      <h2>Our Legacy</h2>
     </div>
     <div class="about__grid">
       <div class="about__block">
@@ -537,6 +538,11 @@ button, input, select{ font-family:var(--sans); }
         <p style="margin-top:14px;">Under the leadership of our Chairman, Dr. Purnendu Chatterjee, TCG has crystalised its reputation over the years as one of the pioneering enterprises that embodies excellence, innovation, growth, and opportunity in equal measure.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="statsband">
+  <div class="shell">
     <div class="stats">
       <div class="stat"><span class="stat__n">1996</span><span class="stat__l">TCG Real Estate established</span></div>
       <div class="stat"><span class="stat__n">30+ Years</span><span class="stat__l">of Experience</span></div>
