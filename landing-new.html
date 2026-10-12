@@ -641,37 +641,6 @@ button, input, select{ font-family:var(--sans); }
 
 </script>
 
-<!-- ============ EDIT MODE (optional) ============
-     Open the page with  index.html#edit  to edit text directly, click any image to replace it,
-     and use "Save page" to download the updated file. Delete this block to remove edit mode. -->
-<style>
-.ed-bar{position:fixed;z-index:999;right:16px;bottom:16px;display:flex;gap:8px;font:600 13px var(--sans)}
-.ed-bar button{padding:10px 16px;border-radius:999px;border:0;background:#182119;color:#fff;cursor:pointer}
-body.editing [contenteditable]{outline:1px dashed rgba(180,122,31,.7);outline-offset:2px}
-body.editing img{cursor:pointer;outline:2px dashed rgba(31,107,68,.6)}
-</style>
-<script>
-(function(){
-  if(location.hash!=='#edit') return;
-  var sel='h1,h2,h3,p,.card__addr,.pill,.k,.v,.stat__n,.stat__l,.spot__phone,.spot__mail,.spot__label,.spot__tag,.hero__badge,.hero__cap b,.hero__cap span,.brand__name,.brand__sub,.tab,.foot__links a,.foot__links span,.foot__base span,.btn,.nav__links a';
-  var fi=document.createElement('input'); fi.type='file'; fi.accept='image/*'; var target=null;
-  fi.onchange=function(){ var r=new FileReader(); r.onload=function(){ target.src=r.result; }; r.readAsDataURL(fi.files[0]); };
-  document.querySelectorAll(sel).forEach(function(el){ el.setAttribute('contenteditable','true'); });
-  document.querySelectorAll('.tab,.btn,.nav__links a,.spot__phone,.spot__mail,.foot__links a').forEach(function(a){ a.addEventListener('click',function(e){ if(document.body.classList.contains('editing')) e.preventDefault(); }); });
-  document.body.classList.add('editing');
-  document.addEventListener('click',function(e){ if(e.target.tagName==='IMG'){ e.preventDefault(); target=e.target; fi.click(); } },true);
-  var bar=document.createElement('div'); bar.className='ed-bar';
-  bar.innerHTML='<button id="edSave">Save page</button>';
-  document.body.appendChild(bar);
-  document.getElementById('edSave').onclick=function(){
-    document.body.classList.remove('editing'); bar.remove();
-    document.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
-    var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
-    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download='index.html'; a.click();
-    setTimeout(function(){ location.reload(); },500);
-  };
-})();
-</script>
 
 </body>
 </html>
