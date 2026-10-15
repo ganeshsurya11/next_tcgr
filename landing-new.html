@@ -66,9 +66,10 @@ button, input, select{ font-family:var(--sans); }
   transition:background .35s ease, color .35s ease, padding .35s ease, box-shadow .35s ease;
 }
 .nav.stuck{
-  background:rgba(251,250,244,.92); backdrop-filter:blur(10px);
-  color:var(--ink); padding-block:14px;
+  background:#525251; 
+  color:#fff; padding-block:14px;
   box-shadow:0 1px 0 var(--line-soft);
+  opacity: 0.7;
 }
 .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; }
 .brand__mark{ width:30px; height:auto; flex:none; }
@@ -265,7 +266,7 @@ button, input, select{ font-family:var(--sans); }
 .spot__media{ position:relative; min-height:340px; }
 .spot__media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .spot__tag{
-  position:absolute; top:22px; left:22px; z-index:2;
+  position:absolute; top:522px; left:22px; z-index:2;
   background:var(--gold); color:#fff; font-size:.72rem; font-weight:700;
   padding:8px 15px; border-radius:999px; letter-spacing:.02em;
 }
@@ -342,7 +343,7 @@ button, input, select{ font-family:var(--sans); }
       <button class="tab" role="tab" aria-selected="false" data-city="mumbai">Mumbai <span class="count">(1)</span></button>
       <button class="tab" role="tab" aria-selected="false" data-city="delhi">Delhi NCR <span class="count">(2)</span></button>
       <button class="tab" role="tab" aria-selected="false" data-city="kolkata">Kolkata <span class="count">(2)</span></button>
-      <button class="tab" role="tab" aria-selected="false" data-city="pune">Pune <span class="count">(3)</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-city="pune">Pune <span class="count">(4)</span></button>
     </div>
 
     <div class="panel active" data-panel="bengaluru">
@@ -355,7 +356,7 @@ button, input, select{ font-family:var(--sans); }
             <span class="pill pill--blue">Integrated campus</span>
             <h3 class="card__title">Information Technology Park Limited (ITPL)</h3>
             <span class="card__addr">Whitefield, Bengaluru 560066</span>
-            <p class="card__desc">ITPB is an iconic 69-acre integrated work-live-play destination in Bengaluru’s IT Corridor, Whitefield. It offers over 3 million sq. ft. of integrated workspace across SEZ and non-SEZ developments, complemented by retail, hospitality and social infrastructure. It enjoys excellent road access and Metro connectivity to Bengaluru’s CBD.</p>
+            <p class="card__desc">TCG Real Estate’s portfolio at ITPL, Whitefield, Bengaluru, spans multiple floors across three buildings spread over 26 acres within a 69-acre integrated work-live-play campus. The campus comprises SEZ and non-SEZ workspaces, complemented by retail, hospitality and social infrastructure. Excellent road access and Metro connectivity link the campus to Bengaluru’s CBD.</p>
             <div class="card__specs">
               <div><span class="k">Total project area</span><span class="v">4 Mn sq. ft.</span></div>
             </div>
@@ -466,20 +467,7 @@ button, input, select{ font-family:var(--sans); }
 
     <div class="panel" data-panel="pune">
       <div class="cards">
-        <article class="card">
-          <div class="card__media">
-              <img src="landing/pune-ibp.jpg" alt="TCG International Biotech Park" />
-            </div>
-          <div class="card__body">
-            <span class="pill pill--green">Life sciences</span>
-            <h3 class="card__title">TCG International Biotech Park (TCG-IBP)</h3>
-            <span class="card__addr">Infotech - Biotech Park, MIDC, Hinjawadi Phase II, Hinjawadi, Pune</span>
-            <p class="card__desc">TCG-IBP is an integrated life sciences and research park located in Hinjawadi Phase II, Pune. Developed as a public-private partnership between TCG Real Estate and MIDC, the park provides specialised infrastructure for biotechnology and life sciences companies, supported by commercial, residential and social infrastructure.</p>
-            <div class="card__specs">
-              <div><span class="k">Total project area</span><span class="v">0.8 Mn sq. ft.</span></div>
-            </div>
-          </div>
-        </article>
+        
         <article class="card">
           <div class="card__media"> 
             <img src="landing/pune-crowns-pune.jpg" alt="The Crown Greens" />
@@ -487,13 +475,52 @@ button, input, select{ font-family:var(--sans); }
           <div class="card__body">
             <span class="pill pill--gold">Residential</span>
             <h3 class="card__title">The Crown Greens</h3>
-            <span class="card__addr">Genesis Square, Rajiv Gandhi Infotech Biotech Park, MIDC, Hinjawadi Phase II, Pune</span>
-            <p class="card__desc">The Crown Greens offers 2 &amp; 3 BHK homes in Hinjawadi Phase 2, thoughtfully planned for a life that moves forward without feeling rushed. Set within an established community, with lifestyle amenities already in place, smart everyday conveniences and the Metro station immediately adjacent, this is a home where work, connectivity, comfort and calm come together beautifully.</p>
+            <span class="card__addr">Plot 7 International Biotech Park, Rajiv Gandhi IT-BT Park, MIDC Phase II, Hinjawadi, Pune</span>
+            <p class="card__desc">Situated in Hinjawadi MIDC Phase II, The Crown Greens offers aesthetically designed 2 BHK and 3 BHK homes that create a calm, relaxed atmosphere. With ready-to-enjoy amenities, Adjacent Metro station and a vibrant community, the towers deliver an elevated lifestyle.</p>
             <div class="card__specs">
-              <div><span class="k">Total project area</span><span class="v">To be updated</span></div>
+              <div><span class="k">Total project area</span><span class="v">10 acres</span></div>
             </div>
           </div>
         </article>
+
+        <article class="card">
+          <div class="card__media"> 
+            <img src="landing/pune-yukio.jpg" alt="Yukio Pune" />
+          </div>
+          <div class="card__body">
+            <span class="pill pill--gold">Residential</span>
+            <h3 class="card__title">Yukio</h3>
+            <span class="card__addr">Yukio Jobs: Wing J, The Cliff Garden, Plot R2/1, MIDC Phase III, Hinjawadi, Pune <br/>
+Yukio Gates: 7 Square, Wakad, Pune
+</span>
+            <p class="card__desc">Yukio is a premium managed-living offering with fully furnished accommodation across Hinjawadi and Wakad, Pune. With 1,000 beds, modern amenities and a close-knit community, it combines comfort, convenience and holistic growth for students and young professionals.</p>
+            <div class="card__specs">
+              <div><span class="k">Total project area</span><span class="v">2,00,000 sq.ft.</span></div>
+            </div>
+          </div>
+        </article>
+        
+
+        <article class="card">
+          <div class="card__media">
+              <img src="landing/pune-ibp.jpg" alt="TCG International Biotech Park" />
+            </div>
+          <div class="card__body">
+            <span class="pill pill--green">Biotech Park</span>
+            <h3 class="card__title">TCG International Biotech Park (TCG-IBP)</h3>
+            <span class="card__addr">Plot 15, Genesis Square, Ground Floor
+Rajiv Gandhi Infotech Biotech Park
+MIDC Phase – II, Hinjawadi-Maan,
+Pune – 411057</span>
+            <p class="card__desc">TCG-IBP is an integrated life sciences and research park located in Hinjawadi Phase II, Pune. Developed as a public-private partnership between TCG Real Estate and MIDC, the park provides specialised infrastructure for biotechnology and life sciences companies, supported by commercial, residential and social infrastructure.</p>
+            <div class="card__specs">
+              <div><span class="k">Total project area</span><span class="v">0.8 Mn sq. ft.</span></div>
+            </div>
+          </div>
+        </article>
+
+        
+
         <article class="card">
           <div class="card__media"> 
             <img src="landing/pune-tcg.jpg" alt="TCG Cliff Garden" />
@@ -501,10 +528,10 @@ button, input, select{ font-family:var(--sans); }
           <div class="card__body">
             <span class="pill pill--gold">Residential</span>
             <h3 class="card__title">TCG Cliff Garden</h3>
-            <span class="card__addr">Phase 3, Hinjawadi Rajiv Gandhi Infotech Park, Maan Road, Hinjawadi, Pune</span>
-            <p class="card__desc">Set against the foothills of the Sahyadri range in Hinjawadi Phase III, Pune, The Cliff Garden offers contemporary 1 and 2 BHK residences with landscaped open spaces and thoughtfully planned amenities, close to Hinjawadi’s major technology and employment hubs.</p>
+            <span class="card__addr">Plot R2/1 VH Township, Rajiv Gandhi IT Park, MIDC Phase III, Hinjawadi, Pune</span>
+            <p class="card__desc">Situated in Hinjawadi MIDC Phase III, The Cliff Garden is a well-planned residential township. Surrounded by greenery and landscaped open spaces, it blends contemporary living with premium amenities, recreation and easy access to Pune’s IT corridor.</p>
             <div class="card__specs">
-              <div><span class="k">Total project area</span><span class="v">0.52 Mn sq. ft.</span></div>
+              <div><span class="k">Total project area</span><span class="v">31 acres</span></div>
             </div>
           </div>
         </article>
@@ -518,14 +545,13 @@ button, input, select{ font-family:var(--sans); }
   <div class="shell">
     <div class="spot__grid">
       <div class="spot__media">
-        <span class="spot__tag">Now selling</span>
-        <img class="spot__img" src="landing/crown.png" alt="The Crown Greens" loading="lazy">
+        <span class="spot__tag" style="font-size:1.72rem">Booking On</span>
+        <img class="spot__img" src="landing/crown.jpg" alt="The Crown Greens" loading="lazy">
       </div>
       <div class="spot__content">
-        <div>
           <h2>The Crown Greens</h2>
-          <p class="lede">The Crown Greens brings you 2 &amp; 3 BHK homes in Hinjawadi Phase II, Pune, designed for a life that moves forward without feeling rushed.</p>
-        </div>
+          
+        <p class="lede">The Crown Greens brings you 2 &amp; 3 BHK homes in Hinjawadi Phase II, Pune, designed for a life that moves forward without feeling rushed.</p>
         <p class="spot__text">Set within an established community, with lifestyle amenities already in place, smart everyday conveniences, and the Metro station nearby, this is a home where work, connectivity, comfort and calm come together beautifully.</p>
         <p class="spot__text spot__closing">Here, the pace of the city does not take away from peace. It leads you to it.</p>
         <div class="spot__contact">
@@ -560,9 +586,10 @@ button, input, select{ font-family:var(--sans); }
 <section class="statsband">
   <div class="shell">
     <div class="stats">
-      <div class="stat"><span class="stat__n">1996</span><span class="stat__l">The year of establishment</span></div>
+      <!-- <div class="stat"><span class="stat__n">1996</span><span class="stat__l">The year of establishment</span></div> -->
       <div class="stat"><span class="stat__n">30+ Years</span><span class="stat__l">of Experience</span></div>
       <div class="stat"><span class="stat__n">4M Sq.Ft.</span><span class="stat__l">Developed Across India</span></div>
+      <div class="stat"><span class="stat__n">200+</span><span class="stat__l">Corporate Served Across India </span></div>
       <div class="stat"><span class="stat__n">1,600+</span><span class="stat__l">Happy Families served in Pune</span></div>
     </div>
   </div>
@@ -593,7 +620,7 @@ button, input, select{ font-family:var(--sans); }
           <!-- <img src="logo-2.png" alt="TCG Real Estate Logo" /> -->
           <span>TCG Real Estate</span>
         </div>
-        <p>Part of The Chatterjee Group. This page is an interim overview of the firm while tcgre.com is rebuilt. The full site follows.</p>
+        <p>© 2026 TCG Real Estate, a part of The Chatterjee Group. All rights reserved.</p>
       </div>
       <div>
         <h5>Explore</h5>
