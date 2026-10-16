@@ -266,10 +266,11 @@ button, input, select{ font-family:var(--sans); }
 .spot__media{ position:relative; min-height:340px; }
 .spot__media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .spot__tag{
-  position:absolute; top:522px; left:22px; z-index:2;
-  background:var(--gold); color:#fff; font-size:.72rem; font-weight:700;
+  position:absolute; bottom:30px; left:22px; z-index:2;
+  background:var(--gold); color:#fff; font-size:clamp(1rem,4.5vw,1.72rem); font-weight:700;
   padding:8px 15px; border-radius:999px; letter-spacing:.02em;
 }
+@media (max-width:600px){ .spot__tag{ bottom:18px; left:14px; padding:6px 12px; } }
 .spot__content{ padding:clamp(30px,4vw,54px); display:flex; flex-direction:column; gap:22px; }
 .spot__content h2{ font-size:clamp(1.7rem,3vw,2.3rem); line-height:1.1; }
 .spot__content p.lede{ color:var(--ink-soft); max-width:46ch; }
@@ -323,7 +324,7 @@ button, input, select{ font-family:var(--sans); }
 
 <header class="hero" id="top">
   <div class="hero__media">
-    <img src="landing/banner.png" alt="Banner" />
+    <img src="landing/banner.jpg" alt="Banner" />
   </div>
   <div class="hero__scrim"></div>
   <div class="hero__in">
@@ -358,7 +359,7 @@ button, input, select{ font-family:var(--sans); }
             <span class="card__addr">Whitefield, Bengaluru 560066</span>
             <p class="card__desc">TCG Real Estate’s portfolio at ITPL, Whitefield, Bengaluru, spans multiple floors across three buildings spread over 26 acres within a 69-acre integrated work-live-play campus. The campus comprises SEZ and non-SEZ workspaces, complemented by retail, hospitality and social infrastructure. Excellent road access and Metro connectivity link the campus to Bengaluru’s CBD.</p>
             <div class="card__specs">
-              <div><span class="k">Total project area</span><span class="v">4 Mn sq. ft.</span></div>
+              <div><span class="k">Total project area</span><span class="v">0.2 Mn sq. ft.</span></div>
             </div>
           </div>
         </article>
@@ -545,7 +546,7 @@ Pune – 411057</span>
   <div class="shell">
     <div class="spot__grid">
       <div class="spot__media">
-        <span class="spot__tag" style="font-size:1.72rem">Booking On</span>
+        <span class="spot__tag">Booking On</span>
         <img class="spot__img" src="landing/crown.jpg" alt="The Crown Greens" loading="lazy">
       </div>
       <div class="spot__content">
