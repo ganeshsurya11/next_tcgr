@@ -85,7 +85,7 @@ button, input, select{ font-family:var(--sans); }
 .nav__links a.btn-ghost{
   opacity:1; border:1px solid currentColor; border-radius:999px; padding:9px 18px; border-bottom:1px solid currentColor;
 }
-@media (max-width:760px){ .nav__links a:not(.btn-ghost){ display:none; } }
+@media (max-width:760px){ .nav__links { display:none; } }
 
 /* ============ HERO (full screen banner) ============ */
 .hero{ position:relative; height:100svh; min-height:600px; overflow:hidden; background:var(--ink); }
@@ -119,7 +119,7 @@ button, input, select{ font-family:var(--sans); }
 }
 .hero__badge img{ width:18px; height:18px; }
 .hero h1{
-  margin:0; font-size:clamp(1.5rem,2.9vw,2.9rem); line-height:1.2;
+  margin:0; font-size:clamp(1.7rem,3vw,3rem); line-height:1.2;
   letter-spacing:-.015em; font-weight:500; max-width:20ch;
   font-family:"Manrope", "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -546,7 +546,7 @@ Pune – 411057</span>
   <div class="shell">
     <div class="spot__grid">
       <div class="spot__media">
-        <span class="spot__tag">Booking On</span>
+        <span class="spot__tag">Bookings On</span>
         <img class="spot__img" src="landing/crown.jpg" alt="The Crown Greens" loading="lazy">
       </div>
       <div class="spot__content">
